@@ -2,28 +2,32 @@
  * program.c
  *
  *  Created on: Jan 10, 2014
- *      Author: Hillel Chaitoff
+ *      Author: Hillel Chaitoff, Bryan Pressley, Jim Bach
  */
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include <json/json.h>
 #include "cJSON.h"
-#include <math.h>
 
-
-#define BUFFSIZE	2048
-
-void print(const char * a){
+/**
+* Prints a char array.
+* @param a			The char array
+*/
+void print(const char* a){
 	int i;
 	for(i = 0; i < strlen(a); i++){
 		printf("%c", a[i]);
 	}
 }
 
-
-char* file2str(char *fName){
+/**
+* Converts a files contents to a char array.
+* @param fName			The name of the file
+*/
+char* file2str(char* fName){
 	int i, c, size;
 	char x;
 	char* json;
@@ -107,7 +111,7 @@ double scoreFactor(double teamGoals, double goalie){
 * 
 * @param otA		average overtime goals for team A
 * @param otB		average overtime goals for team B
-* @param goalieA	avaerage saves for goalie A
+* @param goalieA	average saves for goalie A
 * @param goalieB	average saves for goalie B
 * @param nameA		three letter abbreviation for team name A
 * @param nameB		three letter abbreviation for team name B
@@ -365,6 +369,21 @@ double getGoalieOt(char *goalieData)
 }
 
 int main( int argc, char * argv[]) {
+	char* nameA = argv[1];
+	char* check = "none";
+	char* nullCheck = "";
+	if (argc == 1)
+	{
+		printf("\n ***Welcome to Boards and Bets instructions*** \n This program returns a score of an nhl hockey game \n between two teams.  \n ***RUN OPTIONS*** \n To run this program your input should be make T1=YYY T2=ZZZ \n  YYY is a capital three letter city abbrviation as is ZZZ \n For example PHI for YYY and PIT for ZZZ \n ***CITY LISTINGS*** \n To get a list of all city abbreviations, type T1=none \n good luck and gamble, bet, or guess responsibly!!!\n");
+		exit(0);
+	}
+	//printf("input  %s, check %s ", nameA, check);
+	if (strcmp( nameA, check) == 0)
+	{
+		char* teams = "ATLANTIC = BOS, FLA, TOR, BUF, DET, TBL, MTL, OTT,\n METROPOLITAN = NYI, CAR, PIT, NJD, COL, NYR, PHI, WSH, \n CENTRAL= NSH, DAL, MIN, COL, WIN, STL, CHI, \n PACIFIC = LAK, SJS, CAL, VAN, EDM, PHX, ANA\n";
+		printf("Accepted values for T1 and T2 are\n %s", teams);
+		exit(0);
+	}
 	int size1;
 	int size2;
 	char* json1;
@@ -372,7 +391,7 @@ int main( int argc, char * argv[]) {
 	
 	double teamA = 0;
 	double goalieA = 0;
-	char* nameA = argv[1];//set team A
+	//char* nameA = argv[1];//set team A
 	char* nameB = argv[2];//set team B
 	double otA = 0;
 	double teamB = 0;
@@ -396,16 +415,6 @@ int main( int argc, char * argv[]) {
 	printf("\nteam B average goals is = %f", teamB);
 	printf("\nteam B goalie is          %f", goalieB);
 	printf("\n");
-	
-	//default for now
-	/*
-	double otA = 1;
-	double otB = 3;
-	*/
-	//hard coded
-	//char* nameA = "PHI";
-	//char* nameB = "ANA";
-	
 	
 	//determine which team wins!!
 	gameDecision(teamA, teamB, goalieA, goalieB, otA, otB, nameA, nameB);
