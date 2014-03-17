@@ -1,6 +1,5 @@
 CC = gcc
 VIEWER = less
-AOUT = ./a.out
 
 .PHONY: clean build run view
 
