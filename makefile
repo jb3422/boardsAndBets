@@ -18,4 +18,4 @@ view : program4.c
 
 clean :
 	- rm -f *.json
-	- rm -f $(AOUT)
+	- rm -f a.out
